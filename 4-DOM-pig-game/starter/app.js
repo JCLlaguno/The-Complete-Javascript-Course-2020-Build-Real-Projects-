@@ -13,6 +13,8 @@ var scores, roundScore, activePlayer, gamePlaying;
 
 init();
 
+var lastDice;
+
 
 // Event listener function
 // Roll button
@@ -21,27 +23,51 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     if(gamePlaying) {
         
         // 1. Random number
-        var dice = Math.floor(Math.random() * 6 + 1);
+        var dice1 = Math.floor(Math.random() * 6 + 1);
+        var dice2 = Math.floor(Math.random() * 6 + 1);
 
         // 2. Display the result
-        var diceDOM = document.querySelector('.dice');
-
-        diceDOM.style.display = 'block';
-        diceDOM.src = 'dice-' + dice + '.png';
+        document.getElementById('dice-1').style.display = 'block';
+        document.getElementById('dice-2').style.display = 'block';
+        document.getElementById('dice-1').src = 'dice-' + dice1 + '.png';
+        document.getElementById('dice-2').src = 'dice-' + dice2 + '.png';
 
         // 3. Update the round score IF the rolled number was NOT a 1
-        if(dice !== 1) {
+        // Clear the entire score when the user rolls two 6 in a row
+        
+        /*if(dice == 6 && lastDice == 6) {
+
+            scores[activePlayer] = 0;
+            document.querySelector('#score-' + activePlayer).textContent = '0';
+            nextPlayer();
+
+        } else if(dice !== 1 && dice2 !== 1) {
 
             // Add score
-            roundScore += dice;
+            roundScore += dice + dice2;
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
-
-
+        
         } else {
 
             // Next player
             nextPlayer();
 
+        }
+        
+        lastDice = dice;*/
+        
+        // 3. Update the round score IF the rolled number in BOTH dices is NOT a 1
+        if(dice1 !== 1 && dice2 !== 1) {
+            
+            // Add score
+            roundScore += dice1 + dice2;
+            document.querySelector('#current-' + activePlayer).textContent = roundScore;
+            
+        } else {
+            
+            // Next player
+            nextPlayer();
+            
         }
         
     }
@@ -59,14 +85,31 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
     
         // Display to the UI
         document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+        
+        var input = document.querySelector('.final-score').value;
+//        console.log(input);
+        var winningScore;
+        
+        // Undefined, 0, null or "" are COERCED to false
+        // Anything else is COERCED to true
+        if(input) {
+            
+            winningScore = input;
+            
+        } else {
+            
+            winningScore = 100;
+            
+        }
 
-        // If a player scores 100 or more
-        if(scores[activePlayer] >= 20) {
+        // Check if player won the game
+        if(scores[activePlayer] >= winningScore) {
     
             document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
         
             // hide the dice
-            document.querySelector('.dice').style.display = 'none';
+            document.getElementById('dice-1').style.display = 'none';
+            document.getElementById('dice-2').style.display = 'none';
         
             // Add the .winner class
             document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
@@ -108,7 +151,9 @@ function nextPlayer() {
         
         document.querySelector('.player-0-panel').classList.toggle('active');
         document.querySelector('.player-1-panel').classList.toggle('active');
-        document.querySelector('.dice').style.display = 'none';
+    
+        document.getElementById('dice-1').style.display = 'none';
+        document.getElementById('dice-2').style.display = 'none';
     
 }
 
@@ -120,11 +165,13 @@ function init() {
     roundScore = 0;
     activePlayer = 0;
     gamePlaying = true;
+    previousDice = 0;
 
 
     // change the style of an element
     // hide the dice
-    document.querySelector('.dice').style.display = 'none';
+    document.getElementById('dice-1').style.display = 'none';
+    document.getElementById('dice-2').style.display = 'none';
 
     // getElementById method - faster than querySelector method
     document.getElementById('score-0').textContent = '0';
@@ -147,6 +194,12 @@ function init() {
     
     // Add the active class on the first player (default)
     document.querySelector('.player-0-panel').classList.add('active');
+    
+}
+
+function getWinningScore() {
+    
+    winScore = document.getElementById('winningScore').value;
     
 }
 

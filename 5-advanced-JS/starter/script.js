@@ -360,21 +360,46 @@ var jane = Object.create(personProto, {
 
 
 // Closures Activity
-function interviewQuestion(job) {
+//function interviewQuestion(job) {
+//    
+//    return function(name) {
+//        
+//        if(job === 'designer') {
+//            
+//            console.log(name + ', Can you please explain what UX design is?');
+//            
+//        } else if(job === 'teacher') {
+//            
+//            console.log('What subject do you teach, ' + name + '?');
+//            
+//        } else {
+//            
+//            console.log(name + ', what do you do?');
+//            
+//        }
+//        
+//    }
+//    
+//}
+//
+//interviewQuestion('teacher')('John');
+
+
+// Lecture: Bind, call and apply
+var john = {
     
-    return function(name) {
+    name: 'John',
+    age: 26,
+    job: 'teacher',
+    presentation: function(style, timeOfDay) {
         
-        if(job === 'designer') {
+        if(style === 'formal') {
             
-            console.log(name + ', Can you please explain what UX design is?');
+            console.log('Good ' + timeOfDay + ', Ladies and gentlemen! I\'m ' + this.name + ', I\'m a ' + this.job + ' and I\'m ' + this.age + ' years old.');
             
-        } else if(job === 'teacher') {
+        } else if(style === 'friendly') {
             
-            console.log('What subject do you teach, ' + name + '?');
-            
-        } else {
-            
-            console.log(name + ', what do you do?');
+            console.log('Hey! What\'s up? I\'m ' + this.name + ', I\'m a ' + this.job + ' and I\'m ' + this.age + ' years old. Have a nice ' + timeOfDay + '.');
             
         }
         
@@ -382,7 +407,151 @@ function interviewQuestion(job) {
     
 }
 
-interviewQuestion('teacher')('John');
+var emily = {
+    
+    name: 'Emily',
+    age: 35,
+    job: 'designer'
+    
+}
+
+
+john.presentation('formal', 'morning');
+john.presentation.call(emily, 'friendly', 'afternoon'); // call / (method borrowing)
+//john.presentation.apply(emily, ['friendly', 'afternoon']); // apply
+var johnFriendly = john.presentation.bind(john, 'friendly'); // bind / carrying - creating a function based on another function but with some pre-set parameters.
+johnFriendly('morning');
+johnFriendly('night');
+var emilyFormal = john.presentation.bind(emily, 'formal');
+emilyFormal('afternoon');
+
+
+var years = [1990, 1965, 1937, 2005, 1998];
+
+function arrayCalc(arr, fn) {
+    
+    var arrRes = [];
+    
+    for(var i = 0; i < arr.length; i++) {
+        
+        arrRes.push(fn(arr[i]));
+        
+    }
+    
+    return arrRes;
+    
+}
+
+function calculateAge(el) {
+    
+    return 2016 - el; // el is the years
+    
+}
+
+function isFullAge(limit, el) {
+    
+    return el >= limit; // el is the age
+    
+}
+
+var ages = arrayCalc(years, calculateAge);
+var fullJapan = arrayCalc(ages, isFullAge.bind(this, 20)); // 20 is the pre-set argument for the 'limit' parameter as the 'arrayCalc' callback function only takes one parameter
+
+console.log(ages);
+console.log(fullJapan);
+
+
+
+
+
+
+// Coding challenge
+/*
+1. Build a function constructor called Question to describe a question. A question should include:
+a) question itself
+b) the answers from which the player can choose the correct one (choose an adequate data structure here, array, object, etc.)
+c) correct answer (I would use a number for this)
+
+2. Create a couple of questions using the constructor
+
+3. Store them all inside an array
+
+4. Select one random question and log it on the console, together with the possible answers (each question should have a number) (Hint: write a method for the Question objects for this task).
+
+5. Use the 'prompt' function to ask the user for the correct answer. The user should input the number of the correct answer such as you displayed it on Task 4.
+
+6. Check if the answer is correct and print to the console whether the answer is correct or not (Hint: write another method for this).
+
+7. Suppose this code would be a plugin for other programmers to use in their code (Hint: we learned a special technique to do exactly that).
+*/
+
+
+//(function() {
+////constructor function
+//    var choices = [];
+//    var Question = function(questions,choices,answer) {
+//
+//        this.questions = questions;
+//        this.choices = choices;
+//        this.answer = answer;
+//
+//    }
+//
+//    //questions
+//    var question1 = new Question('Hi! Are you happy?', ['Yes', 'No', 'Maybe'], '0');
+//    var question2 = new Question('What is my passion?', ['Drawing', 'Coding', 'Workout', 'All'], '1');
+//
+//    var arrQuestions = [question1, question2];
+//
+//    var randomize = Math.floor(Math.random() * 2);
+//
+//    function selectQuestion(arr, selection) {
+//
+//        console.log(arr[selection].questions);
+//        console.log(arr[selection].choices);
+//        console.log(arr[selection].answer);
+//
+//        var textInput = prompt('Please select the correct answer.');
+//
+//        checkAnswer(textInput, arr[selection].answer);
+//
+//    }
+//    selectQuestion(arrQuestions, randomize);
+//
+//    function checkAnswer(textInput, correctAnswer) {
+//        
+//        if(textInput === 'exit') {
+//            
+//            return;
+//            
+//        } else if(textInput === correctAnswer) {
+//
+//            console.log('Your answer is correct.');
+//            selectQuestion(arrQuestions, randomize);
+//
+//        } else {
+//
+//            console.log('Sorry try again.');
+//            selectQuestion(arrQuestions, randomize);
+//
+//        }
+//        
+//
+//    }
+//    
+//}) (); 
+//
+
+/*
+8. After you display the result, display the next random question, so that the game never ends (Hint: write a function for this and call it right after displaying the result)
+
+9. Be careful: after Task 8, the game literally never ends. So include the option to quit the game if the user writes 'exit' instead of the answer. In this case, DON'T call the function from task 8.
+
+10. Track the user's score to make the game more fun! So each time an answer is correct, add 1 point to the score (Hint: I'm going to use the power of closures for this, but you don't have to, just do this with the tools you feel more comfortable at this point).
+
+11. Display the score in the console. Use yet another method for this.
+*/
+
 
 
 

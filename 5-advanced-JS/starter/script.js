@@ -490,9 +490,10 @@ c) correct answer (I would use a number for this)
 11. Display the score in the console. Use yet another method for this.
 */
 
-
+// MY SOLUTION
 (function() {
-//constructor function
+    
+    //constructor function
     var choices = [], score = 0;
     var Question = function(questions,choices,answer) {
 
@@ -503,8 +504,8 @@ c) correct answer (I would use a number for this)
     }
 
     //questions
-    var question1 = new Question('Hi! Are you happy?', ['Yes', 'No', 'Maybe'], '0');
-    var question2 = new Question('What is my passion?', ['Drawing', 'Coding', 'Workout', 'All'], '3');
+    var question1 = new Question('Hi! Are you happy?', ['0 Yes', '1 No', '2 Maybe'], '0');
+    var question2 = new Question('What is my passion?', ['0 Drawing', '1 Coding', '2 Workout', '3 All'], '3');
 
     var arrQuestions = [question1, question2];
 
@@ -517,8 +518,7 @@ c) correct answer (I would use a number for this)
     function selectQuestion(arr, selection) {
 
         console.log(arr[selection].questions);
-        console.log(arr[selection].choices);
-        console.log(arr[selection].answer);
+        console.log(arr[selection].choices.join(', ').toString());
 
         var textInput = prompt('Please select the correct answer.');
 
@@ -551,7 +551,7 @@ c) correct answer (I would use a number for this)
 
     }
     
-}) (); 
+})(); 
 
 
 

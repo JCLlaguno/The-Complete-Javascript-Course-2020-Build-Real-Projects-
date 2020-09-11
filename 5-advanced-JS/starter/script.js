@@ -479,7 +479,155 @@ c) correct answer (I would use a number for this)
 6. Check if the answer is correct and print to the console whether the answer is correct or not (Hint: write another method for this).
 
 7. Suppose this code would be a plugin for other programmers to use in their code (Hint: we learned a special technique to do exactly that).
+*/
 
+
+// MY SOLUTION
+//(function() {
+//    
+//    var choices = [], score = 0;
+//    
+//    //constructor function
+//    var Question = function(questions,choices,answer) {
+//
+//        this.questions = questions;
+//        this.choices = choices;
+//        this.answer = answer;
+//
+//    }
+//
+//    //questions
+//    var question1, question2, question3;
+//    
+//    question1 = new Question('Hi! Are you happy?', ['0 Yes', '1 No', '2 Maybe'], '0');
+//    question2 = new Question('What is my passion?', ['0 Drawing', '1 Coding', '2 Workout', '3 All'], '3');
+//    question3 = new Question('Where do you live?', ['0 US', '1 China', '2 Philippines'], '2');
+//
+//    var arrQuestions = [question1, question2, question3];
+//
+//    var randomize = function() {
+//    
+//        return Math.floor(Math.random() * 3);
+//    
+//    }
+//    
+//    selectQuestion(arrQuestions, randomize());
+//
+//    function selectQuestion(arr, selection) {
+//
+//        console.log(arr[selection].questions);
+//        console.log(arr[selection].choices.join(', ').toString());
+//
+//        var textInput = prompt('Please select the correct answer.');
+//
+//        checkAnswer(textInput, arr[selection].answer);
+//
+//    }
+//
+//    function checkAnswer(textInput, correctAnswer) {
+//        
+//        if(textInput === 'c') {
+//            
+//            return;
+//            
+//        } else if(textInput === correctAnswer) {
+//
+//            console.log('Your answer is CORRECT.');
+//            score += 1;
+//            console.log('SCORE: ' + score);
+//            selectQuestion(arrQuestions, randomize());
+//
+//        } else {
+//
+//            console.log('WRONG ANSWER! Try again.');
+//            console.log('SCORE: ' + score);
+//            selectQuestion(arrQuestions, randomize());
+//
+//        }
+//        
+//
+//    }
+//    
+//})(); 
+
+
+// Instructor's solution
+
+// 7. IIFE
+// Code privacy
+// To avoid this code from interfering with other code
+// Creates a new scope
+(function() {
+    
+    // 1. Function Constructor
+    function Question(question, answers, correct) {
+
+        this.question = question; // question (str)
+        this.answers = answers; // answers (array)
+        this.correct = correct; // correct answer (int)
+
+    }
+
+    // Method in the Constructor's prototype
+    // Display the questions and possible answers
+    Question.prototype.displayQuestion = function() {
+
+        // question
+        console.log(this.question);
+
+        // answers
+        for(var i = 0; i < this.answers.length; i++) {
+
+            console.log(i + ': ' + this.answers[i]);
+
+        }
+
+    }
+
+    // Method in the Constructor's prototype
+    // Check if answer = correct answer
+    // Compare the answer that the user gives with the correct answer
+    Question.prototype.checkAnswer = function(ans) {
+
+        if(ans === this.correct) {
+
+            console.log('Correct answer!');
+
+        } else {
+
+            console.log('Wrong answer. Try again :)');
+
+        }
+
+    }
+
+    // 2. Questions using the constructor
+    var q1 = new Question('Is JavaScript the coolest programming language in the world?', ['Yes', 'No'], 0);
+    var q2 = new Question('What is the name of this course\'s teacher?', ['John', 'Michael', 'Jonas'], 2);
+    var q3 = new Question('What does best describe coding?', ['Boring', 'Hard', 'Fun', 'Tedious'], 2);
+
+    // 3. Store the questions in an array
+    var questions = [q1, q2, q3];
+
+    // Random number between (0) and the number of questions (3)
+    // Give numbers from 0 - 2.
+    var n = Math.floor(Math.random() * Question.length);
+
+    // 4. Random Question
+    // Call the method displayQuestion()
+    questions[n].displayQuestion();
+
+    // 5. Display a prompt to ask the user for the correct answer
+    var answer = parseInt(prompt('Please select the correct answer.'));
+
+    // 6. Check the answer
+    // Call the method checkAnswer()
+    questions[n].checkAnswer(answer);
+
+})();
+
+
+/*
 -- Expert Level --
 8. After you display the result, display the next random question, so that the game never ends (Hint: write a function for this and call it right after displaying the result)
 
@@ -489,72 +637,6 @@ c) correct answer (I would use a number for this)
 
 11. Display the score in the console. Use yet another method for this.
 */
-
-// MY SOLUTION
-(function() {
-    
-    //constructor function
-    var choices = [], score = 0;
-    var Question = function(questions,choices,answer) {
-
-        this.questions = questions;
-        this.choices = choices;
-        this.answer = answer;
-
-    }
-
-    //questions
-    var question1 = new Question('Hi! Are you happy?', ['0 Yes', '1 No', '2 Maybe'], '0');
-    var question2 = new Question('What is my passion?', ['0 Drawing', '1 Coding', '2 Workout', '3 All'], '3');
-
-    var arrQuestions = [question1, question2];
-
-    var randomize = function() {
-    
-        return Math.floor(Math.random() * 2);
-    
-    }
-
-    function selectQuestion(arr, selection) {
-
-        console.log(arr[selection].questions);
-        console.log(arr[selection].choices.join(', ').toString());
-
-        var textInput = prompt('Please select the correct answer.');
-
-        checkAnswer(textInput, arr[selection].answer);
-
-    }
-    selectQuestion(arrQuestions, randomize());
-
-    function checkAnswer(textInput, correctAnswer) {
-        
-        if(textInput === 'c') {
-            
-            return;
-            
-        } else if(textInput === correctAnswer) {
-
-            console.log('Your answer is CORRECT.');
-            score += 1;
-            console.log('SCORE: ' + score);
-            selectQuestion(arrQuestions, randomize());
-
-        } else {
-
-            console.log('WRONG ANSWER! Try again.');
-            console.log('SCORE: ' + score);
-            selectQuestion(arrQuestions, randomize());
-
-        }
-        
-
-    }
-    
-})(); 
-
-
-
 
 
 

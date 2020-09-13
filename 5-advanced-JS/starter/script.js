@@ -638,6 +638,7 @@ c) correct answer (I would use a number for this)
 11. Display the score in the console. Use yet another method for this.
 */
 
+
 // Instructor's solution -- Expert Level --
 
 // 7. IIFE
@@ -674,6 +675,7 @@ c) correct answer (I would use a number for this)
     // Method in the Constructor's prototype
     // Check if answer = correct answer
     // Compare the answer that the user gives with the correct answer
+    // The keepScore function is passed in the second parameter
     Question.prototype.checkAnswer = function(ans, callback) {
 
         var sc;
@@ -681,19 +683,20 @@ c) correct answer (I would use a number for this)
         if(ans === this.correct) {
 
             console.log('Correct answer!');
-            sc = callback(true);
+            sc = callback(true); // keepScore = true / will return an updated score, store the score to 'sc'
 
         } else {
 
             console.log('Wrong answer. Try again :)');
-            sc = callback(false);
+            sc = callback(false);  // keepScore = false / will return the current score (not updated), store the score to 'sc'
 
         }
         
-        this.displayScore(sc);
+        this.displayScore(sc); // call the method to display the score to the console
 
     }
     
+    // Method to display the score in the console
     Question.prototype.displayScore = function(score) {
         
         console.log('Your current score is: ' + score);
@@ -709,25 +712,34 @@ c) correct answer (I would use a number for this)
     // 3. Store the questions in an array
     var questions = [q1, q2, q3];
     
+    // 10. Track the score
+    // Update the score if correct
+    // Everything related to the score including a function to update it
     function score() {
         
         var sc = 0;
+        
+        // increase the score if the answer is correct then return it
+        // if false, just return the score
+        // closure
         return function(correct) {
             
             if(correct) {
                 
-                sc++;
+                sc++; // update the score
                 
             }
             
-            return sc;
+            return sc; // return the score
             
         }
         
     }
     
-    var keepScore = score();
+    var keepScore = score(); // call the function score() and store it in a variable
 
+    
+    // 8. Display the result, then display the next random question
     function nextQuestion() {
         
         // Random number between (0) and the number of questions (3)
@@ -741,14 +753,16 @@ c) correct answer (I would use a number for this)
         // 5. Display a prompt to ask the user for the correct answer
         var answer = prompt('Please select the correct answer.');
 
-        // If the user doesn't choose to exit the game
+        // 9. Continue the game if the input is not 'exit'
         if(answer !== 'exit') {
            
             // 6. Check the answer
             // Call the method checkAnswer()
-            // Convert the answer (str) inputted by the user to int
+            // Convert the answer (str) inputted by the user to (int)
+            // Pass the keepScore variable (contains the function and the closure which keeps track of the score) as an argument - (first class functions)
             questions[n].checkAnswer(parseInt(answer), keepScore);
 
+            // Call the method again if the user decides to continue
             nextQuestion();
         
         }

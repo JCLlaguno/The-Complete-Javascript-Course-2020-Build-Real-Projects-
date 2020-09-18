@@ -1,28 +1,12 @@
-// Module for app
+// BUDGET CONTROLLER
 var budgetController = (function() {
     
-    var x = 23; // private (closure)
-    
-    var add = function(a) {
-        
-        return x + a;
-        
-    }
-    
-    return { 
-        
-        // public method
-        publicTest: function(b) {
-        
-            return add(b);
-        
-        }
-    }
+    //Some code
     
 })();
 
 
-// Module for user interface
+// UI CONTROLLER
 var UIController = (function() {
     
     //Some code
@@ -30,20 +14,35 @@ var UIController = (function() {
 })();
 
 
-// Module for controller
+// GLOBAL APP CONTROLLER
 var controller = (function(budgetCtrl, UICtrl) {
-
-    var z = budgetCtrl.publicTest(5); // private (closure)
     
-    return {
+    var ctrlAddItem = function() {
         
-        // public method
-        anotherPublic: function() {
+        // 1. Get the field input data
+        
+        // 2. Add the item to the budget controller
+        
+        // 3. Add the item to the UI
+        
+        // 4. Calculate the budget
+        
+        // 5. Display the budget on the UI
+        
+        console.log('It works.');
+        
+    }
+
+    document.querySelector('.add__btn').addEventListener('click', ctrlAddItem);
+    
+    document.addEventListener('keypress', function(event) {
+        
+        if(event.keyCode === 13 || event.which === 13) {
             
-            console.log(z);
+            ctrlAddItem();
             
         }
         
-    }
+    });
     
 })(budgetController, UIController); // pass the two modules as arguments

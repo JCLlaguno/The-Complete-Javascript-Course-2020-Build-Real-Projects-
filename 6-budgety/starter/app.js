@@ -270,7 +270,8 @@ var UIController = (function() {
         incomeLabel: '.budget__income--value',
         expenseLabel: '.budget__expenses--value',
         percentageLabel: '.budget__expenses--percentage',
-        container: '.container'
+        container: '.container',
+        expensesPercLabel: '.item__percentage'
         
     }
     
@@ -369,6 +370,41 @@ var UIController = (function() {
             
         },
         
+        displayPercentages: function(percentages) {
+            
+            var fields = document.querySelectorAll(DOMstrings.expensesPercLabel);
+            
+            // nodeListForEach method
+            // takes the fields and the callback function as parameter
+            var nodeListForEach = function(list, callback) {
+                
+                for(var i = 0; i < list.length; i++) {
+                    
+                    // for each item in the nodeList apply the callback (display the percentage)
+                    // in each iteration, the callback function is called
+                    callback(list[i], i); 
+                    
+                }
+                
+            }
+            
+            // call the nodeListForeach method passing the fields and a callback as an argument
+            nodeListForEach(fields, function(current, index) {
+               
+                if(percentages[index] > 0) {
+                    
+                    current.textContent = percentages[index] + '%';
+                    
+                } else {
+                    
+                    current.textContent = '---';
+                    
+                }
+                
+            });
+            
+        },
+        
         // return the dom string elements (classes)
         getDOMstrings: function() {
         
@@ -428,7 +464,7 @@ var controller = (function(budgetCtrl, UICtrl) {
         var percentages = budgetCtrl.getPercentages();
         
         // 3. Update the UI with the new percentages
-        console.log(percentages);
+        UICtrl.displayPercentages(percentages);
         
     }
     

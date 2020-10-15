@@ -117,7 +117,7 @@ console.log(c); // c prints out because it is function scoped not block scoped
 
 
 // Lecture: Strings
-
+/*
 let firstName = 'John';
 let lastName = 'Smith';
 const yearOfBirth = 1990;
@@ -145,9 +145,59 @@ console.log(n.endsWith('Sm')); // false
 console.log(n.includes('oh'));
 //console.log(firstName.repeat(5));
 console.log(`${firstName} `.repeat(5));
+*/
 
 
+// Lecture: Arrow functions
+/* 
 
+there are three ways of writing arrow functions:
+1. with an argument and one line of code (simplest form).
+2. with more than one arguments (must use parentheses ()).
+3. with more than one arguments and lines of code (must use parentheses for the argument, curly braces for the code and a return keyword at the end);
+    
+*/
+
+const years = [1990, 1965, 1982, 1937];
+
+// ES5
+var ages5 = years.map(function(el) {
+    
+    return 2016 - el;                  
+                      
+});
+                      
+console.log(ages5);
+
+// ES6
+// example of arrow functions
+// array map has access to the current element, current index, and the array itself
+// one line of code
+let ages6 = years.map(el => 2016 - el);
+
+console.log(ages6);
+
+
+// more than one argument, one line of code
+// arrow functions with more than one argument must use parentheses ()
+ages6 = years.map((el, index) => `Age element ${index + 1}: ${2016 - el}.`);
+
+console.log(ages6);
+
+
+// more than one argument and line of code
+/* 
+if the return part of the arrow function has more than one line of code (ended by ';'), you need to use curly braces '{}' and a return keyword
+*/
+ages6 = years.map((el, index) => {
+    
+    const now = new Date().getFullYear(); // 1 line
+    const age = now - el; // 2 lines
+    return `Age element ${index + 1}: ${age}.`; // 3 lines (a return was used)
+    
+});
+
+console.log(ages6);
 
 
 

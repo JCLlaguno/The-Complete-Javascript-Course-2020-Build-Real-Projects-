@@ -1,3 +1,4 @@
+//--------------------------------------------------------------------------------------------------------------------------
 // Lecture: let and const
 
 // ES5
@@ -91,6 +92,7 @@ console.log(i);
 */
 
 
+//--------------------------------------------------------------------------------------------------------------------------
 // Lecture: Blocks and IIFEs
 
 // ES6
@@ -116,6 +118,7 @@ console.log(c); // c prints out because it is function scoped not block scoped
 */
 
 
+//--------------------------------------------------------------------------------------------------------------------------
 // Lecture: Strings
 /*
 let firstName = 'John';
@@ -148,6 +151,7 @@ console.log(`${firstName} `.repeat(5));
 */
 
 
+//--------------------------------------------------------------------------------------------------------------------------
 // Lecture: Arrow functions
 /* 
 
@@ -202,9 +206,11 @@ console.log(ages6);
 */
 
 
+//--------------------------------------------------------------------------------------------------------------------------
 // Lecture: Arrow functions 2
 // ES5
 // using regular callback function
+/*
 var box5 = {
     color: 'green',
     position: 1,
@@ -307,9 +313,55 @@ Person.prototype.myFriends6 = function(friends) {
 
 var friends = ['Bob', 'Jane', 'Mark'];
 new Person('Mike').myFriends6(friends);
+*/
 
 
+//--------------------------------------------------------------------------------------------------------------------------
+// Lecture: Destructuring 
 
+// ES5
+var john = ['John', 26];
+
+//var name = john[0];
+//var age = john[1];
+
+
+// ES6 - destructuring
+const [name, age] = ['John', 26];
+
+console.log(name);
+console.log(age);
+
+// destructuring with objects
+const obj = {
+    
+    firstName: 'John',
+    lastName: 'Smith'
+    
+}
+
+const {firstName, lastName} = obj;
+
+console.log(firstName);
+console.log(lastName);
+
+const {firstName: a, lastName: b} = obj;
+console.log(a);
+console.log(b);
+
+
+// function that returns the age of a person as well as the remaining time before retirement
+function calcAgeRetirement(year) {
+    
+    const age = new Date().getFullYear() - year; // gets the person's current age
+    return [age, 65 - age]; // return an array with the current age and years before retirement
+    
+}
+
+const [age2, retirement] = calcAgeRetirement(1990); // use destructuring to store the returned values into different variables
+
+console.log(age2);
+console.log(retirement);
 
 
 

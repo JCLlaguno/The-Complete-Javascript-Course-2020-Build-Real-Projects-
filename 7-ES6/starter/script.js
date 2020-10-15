@@ -22,6 +22,7 @@ console.log(name6);
 
 
 // ES5
+/*
 function driversLicence5(passedTest) {
     
     if(passedTest) {
@@ -87,12 +88,63 @@ console.log(i);
 
 // use let for variables that will change the value overtime
 // use const for variables that cannot be reassigned
+*/
 
 
+// Lecture: Blocks and IIFEs
+
+// ES6
+/*
+// a block
+{
+    const a = 1;
+    let b = 2;
+    var c = 3; // var is function scoped
+}
+
+//console.log(a + b);
+console.log(c); // c prints out because it is function scoped not block scoped
+
+// ES5
+//(function() {
+//    
+//    var c = 3;
+//    
+//})();
+//
+//console.log(c);
+*/
 
 
+// Lecture: Strings
 
+let firstName = 'John';
+let lastName = 'Smith';
+const yearOfBirth = 1990;
 
+function calcAge(year) {
+    
+    return 2016 - year;
+    
+}
+
+// ES5
+console.log('This is ' + firstName + ' ' + lastName + '. He was born in ' + yearOfBirth + '. Today, he is ' + calcAge(yearOfBirth) + ' years old.');
+
+// ES6
+console.log(`This is ${firstName} ${lastName}. He was born in ${yearOfBirth}. Today, he is ${calcAge(yearOfBirth)} years old.`);
+
+const n = `${firstName} ${lastName}`;
+
+//console.log(n.startsWith('J'));
+//console.log(n.startsWith('n')); // false
+console.log(n.startsWith('j'));
+//console.log(n.endsWith('th'));
+console.log(n.endsWith('Sm')); // false
+//console.log(n.includes(' '));
+console.log(n.includes('oh'));
+//console.log(firstName.repeat(5));
+console.log(`${firstName} `.repeat(5));
 
 
 

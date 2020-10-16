@@ -367,7 +367,7 @@ console.log(retirement);
 
 //--------------------------------------------------------------------------------------------------------------------------
 // Lecture: Arrays 
-
+/*
 const boxes = document.querySelectorAll('.box');
 
 // ES5
@@ -452,9 +452,59 @@ console.log(ages.findIndex(cur => cur >= 18)); // 3
 // ES6 find
 // retrieve only the element
 console.log(ages.find(cur => cur >= 18)); // 21
+*/
 
 
+//--------------------------------------------------------------------------------------------------------------------------
+// Lecture: Spread operator
+function addFourAges(a, b, c, d) {
+    
+    return a + b + c + d;
+    
+}
 
+var sum1 = addFourAges(18, 30, 12, 21);
+
+console.log(sum1);
+
+// ES5
+var ages = [18, 30, 12, 21];
+
+// apply method - recieves an array that calls the function that the 'apply' method is used on and uses the elements of the array as the arguments
+var sum2 = addFourAges.apply(null, ages); 
+
+console.log(sum2);
+
+// ES6
+// the '...' expands the array into components / single values
+// (...ages) is the same as writing (18, 30, 12, 21)
+const sum3 = addFourAges(...ages);
+
+console.log(sum3);
+
+
+// using spread operator to join arrays
+const familySmith = ['John', 'Jane', 'Mark'];
+
+const familyMiller = ['Mary', 'Bob', 'Ann'];
+
+// expand the arrays into single elements
+// takes them out of the array
+const bigFamily = [...familySmith, 'Lily', ...familyMiller];
+
+console.log(bigFamily);
+
+
+// using spread operator on a node list
+const h = document.querySelector('h1'); // returns a node
+
+const boxes = document.querySelectorAll('.box'); // returns a node list
+
+const all = [h, ...boxes];
+
+// from() converts the node list from the all variable to an array
+// use the forEach method to set the current element's text color to purple
+Array.from(all).forEach(cur => cur.style.color = 'purple');
 
 
 

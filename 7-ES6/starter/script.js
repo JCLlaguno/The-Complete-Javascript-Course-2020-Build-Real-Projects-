@@ -318,7 +318,7 @@ new Person('Mike').myFriends6(friends);
 
 //--------------------------------------------------------------------------------------------------------------------------
 // Lecture: Destructuring 
-
+/*
 // ES5
 var john = ['John', 26];
 
@@ -362,6 +362,121 @@ const [age2, retirement] = calcAgeRetirement(1990); // use destructuring to stor
 
 console.log(age2);
 console.log(retirement);
+*/
+
+
+//--------------------------------------------------------------------------------------------------------------------------
+// Lecture: Arrays 
+
+const boxes = document.querySelectorAll('.box');
+
+// ES5
+// using slice
+var boxesArr5 = Array.prototype.slice.call(boxes);
+
+boxesArr5.forEach(function(cur) {
+    
+    cur.style.backgroundColor = 'dodgerBlue';
+    
+});
+
+
+// ES6
+// using from method
+const boxesArr6 = Array.from(boxes);
+Array.from(boxes).forEach(cur => cur.style.backgroundColor = 'dodgerBlue');
+
+
+// LOOPS
+// Usually when we want to loop over an array, we use the 'foreach' and the 'map' method and they usually work just fine, but the problem with them is that we actually cannot 'break' from them and we cannot also use the 'continue' statement, so if you want to use the 'break' or the 'continue' statements in a loop, we cannot use 'foreach' and we cannot also use 'map', so a simple 'for' loop is used in ES5.
+
+
+// ES5 for loop
+// change the text inside the boxes
+//for(var i = 0; i < boxesArr5.length; i++) {
+//    
+//    if(boxesArr5[i].className === 'box blue') {
+//        
+//        continue;
+//        
+//    }
+//    
+//    boxesArr5[i].textContent = 'I changed to blue!';
+//    
+//}
+
+// ES6 'for/of' statement
+// combination of foreach/map methods with the for loop 
+// 'continue' and 'break' statements can be used here
+for(const cur of boxesArr6) {
+    
+    // if the class name of the current element = 'box blue', skip it
+//    if(cur.className === 'box blue') {
+//        
+//        continue;
+//        
+//    }
+    
+    // using string methods (includes) - determines whether a string contains the characters of a specified string.
+    // if the class name of the current element contains 'blue', skip it
+    if(cur.className.includes('blue')) {
+        
+        continue;
+        
+    }
+    
+    cur.textContent = "I changed to blue";
+    
+}
+
+
+// ES5 get the oldest
+var ages = [12, 17, 8, 21, 14, 11];
+
+var full = ages.map(function(cur) {
+    
+    return cur >= 18;
+    
+});
+
+console.log(full);
+console.log(full.indexOf(true));
+console.log(ages[full.indexOf(true)]);
+
+
+// ES6 findIndex
+// this has a callback function that has access to the current element, current index, and the entire array
+// return the index for the element in which the expression / callback function returns the value 'true'
+console.log(ages.findIndex(cur => cur >= 18)); // 3
+
+// ES6 find
+// retrieve only the element
+console.log(ages.find(cur => cur >= 18)); // 21
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -457,6 +457,7 @@ console.log(ages.find(cur => cur >= 18)); // 21
 
 //--------------------------------------------------------------------------------------------------------------------------
 // Lecture: Spread operator
+/*
 function addFourAges(a, b, c, d) {
     
     return a + b + c + d;
@@ -505,13 +506,79 @@ const all = [h, ...boxes];
 // from() converts the node list from the all variable to an array
 // use the forEach method to set the current element's text color to purple
 Array.from(all).forEach(cur => cur.style.color = 'purple');
+*/
 
 
+//--------------------------------------------------------------------------------------------------------------------------
+// Lecture: Rest parameters
+// Rest parameters recieves a couple of single values and transforms them into an array when we call a function with multiple parameters (The opposite of spread operator)
+// The spread operator is used in the function call, while the rest operator is used in the function declaration to accept an arbitrary number of parameters
+
+//// ES5
+//function isFullAge5() {
+//    
+////    console.log(arguments); // 'arguments' is a special variable that is present in all functions
+//    var argsArr = Array.prototype.slice.call(arguments);
+//    
+////    console.log(argsArr);
+//    
+//    argsArr.forEach(function(cur) {
+//        
+//       console.log((2016 - cur) >= 18); 
+//        
+//    });
+//    
+//}
+//
+////isFullAge5(1990, 1999, 1965);
+////isFullAge5(1990, 1999, 1965, 2016, 1987);
+//
+//
+//// ES6
+//// using the rest parameter operator
+//// rest parameter - transforms the arguments into an array, and passes it into the function
+//function isFullAge6(...years) {
+//    
+////    console.log(years); // display the years array
+//    years.forEach(cur => console.log((2016 - cur) >= 18));
+//    
+//}
+//
+//isFullAge6(1990, 1999, 1965, 2016, 1987);
 
 
+// example 2
+// ES5
+function isFullAge5(limit) {
+    
+//    console.log(arguments);
+    
+    // slice in this case, copies the array starting from position 1, excluding the first argument '16'
+    var argsArr = Array.prototype.slice.call(arguments, 1);
+    
+    console.log(argsArr);
+    
+    argsArr.forEach(function(cur) {
+        
+       console.log((2016 - cur) >= limit); 
+        
+    });
+    
+}
+
+//isFullAge5(16, 1990, 1999, 1965);
+//isFullAge5(16, 1990, 1999, 1965, 2016, 1987);
 
 
+// ES6
+function isFullAge6(limit, ...argsArr) {
+    
+//    console.log(argsArr);
+    argsArr.forEach(cur => console.log((2016 - cur) >= limit));
+    
+}
 
+isFullAge5(16, 1990, 1999, 1965, 2016, 1987);
 
 
 

@@ -549,6 +549,7 @@ Array.from(all).forEach(cur => cur.style.color = 'purple');
 
 // example 2
 // ES5
+/*
 function isFullAge5(limit) {
     
 //    console.log(arguments);
@@ -579,11 +580,111 @@ function isFullAge6(limit, ...argsArr) {
 }
 
 isFullAge5(16, 1990, 1999, 1965, 2016, 1987);
+*/
 
 
+//--------------------------------------------------------------------------------------------------------------------------
+// Lecture: Default parameters
+/*
+// ES5 - default parameters
+//function SmithPerson(firstName, yearOfBirth, lastName, nationality) {
+//    
+//    lastName === undefined ? lastName = 'Smith' : lastName = lastName;
+//    nationality === undefined ? nationality = 'American' : nationality = nationality;
+//    
+//    this.firstName = firstName;
+//    this.lastName = lastName;
+//    this.yearOfBirth = yearOfBirth;
+//    this.nationality = nationality;
+//    
+//}
 
 
+// ES6 - default parameters
+function SmithPerson(firstName, yearOfBirth, lastName = 'Smith', nationality = 'American') {
+    
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.yearOfBirth = yearOfBirth;
+    this.nationality = nationality;
+    
+}
 
+var john = new SmithPerson('John', 1990);
+var emily = new SmithPerson('Emily', 1996, 'Diaz', 'Spanish');
+*/
+
+
+//--------------------------------------------------------------------------------------------------------------------------
+// Lecture: Maps
+
+const question = new Map(); // create a new empty map
+
+// syntax: question.*('key', 'value');
+// works like a property in an object in ES5
+// set, get, has, delete and clear are the most basic methods that we can use to manipulate maps
+// maps are iterable (can be looped like an array)
+
+// assign values as key value pairs
+question.set('question', 'What is the official name of the latest major JavaScript version?');
+question.set(1, 'ES5');
+question.set(2, 'ES6');
+question.set(3, 'ES2015');
+question.set(4, 'ES7');
+question.set('correct', 3);
+question.set(true, 'Correct answer :D');
+question.set(false, 'Wrong, please try again!');
+
+
+console.log(question.get('question')); // get data from the map
+//console.log(question.size); // same as .length in arrays
+
+// check if a certain key is present inside a map
+// if there's a key number 4 in the question, then we can delete that element
+if(question.has(4)) {
+    
+//    question.delete(4); // delete a data from the map
+//    console.log('Answer 4 is here');
+    
+}
+
+//question.clear(); // clear everything from the map
+
+// loop through a map using forEach method
+// forEach is also in the prototype property of the map function constructor
+//question.forEach((value, key) => console.log(`This is ${key}, and it's set to ${value}`));
+
+
+// loop through a map using for/of statement
+// use destructuring to store the key - value pairs into two separate variables 
+// this syntax also works for arrays
+for(let [key, value] of question.entries()) {
+    
+//    console.log(`This is ${key}, and it's set to ${value}`);
+    
+    // print the key and value only if the key is a number
+    if(typeof(key) === 'number') {
+        
+        console.log(`Answer ${key}: ${value}`);
+        
+    }
+    
+}
+
+// get the correct answer
+const ans = parseInt(prompt('Write the correct answer'));
+
+// ans === question.get('correct') - if the input is the same as the correct answer, the expression will be 'true' else 'false'
+// question.get(ans === question.get('correct')); is the same as question.get(true / false)
+
+// is the same as console.log(question.get(true / false))
+console.log(question.get(ans === question.get('correct'))); // if 3 === 3 console.log(true / false)
+
+// summary: 
+// in maps, we can use anything as keys
+// maps are iterable, making it very easy to loop through them and to manipulate data
+// its really easy to get the size of a map using the size property
+// we can easily add and remove data from a map
 
 
 

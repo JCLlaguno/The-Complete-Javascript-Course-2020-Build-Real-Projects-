@@ -694,6 +694,7 @@ console.log(question.get(ans === question.get('correct'))); // if 3 === 3 consol
 // we need to first implement a class and only later in our code we can start using it
 // 2. we can only add methods to classes but not properties
 
+/*
 // ES5
 // using a blueprint (function constructor)
 var Person5 = function(name, yearOfBirth, job) {
@@ -752,8 +753,114 @@ const john6 = new Person6('John', 1990, 'Teacher');
 
 // calling a static method
 Person6.greeting();
+*/
 
 
+//--------------------------------------------------------------------------------------------------------------------------
+// Lecture: Classes and subclasses
+
+// ES5
+// superclass
+var Person5 = function(name, yearOfBirth, job) {
+    
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
+    
+}
+
+// will be inherited by instances of Person5
+Person5.prototype.calculateAge = function() {
+    
+    var age = new Date().getFullYear() - this.yearOfBirth;
+    console.log(age);
+    
+}
+
+// subclass
+var Athlete5 = function(name, yearOfBirth, job, olympicGames, medals) {
+    
+    // use the .call method to call the superclass
+    // inherit the Person5's name, yearOfBirth and job properties
+    Person5.call(this, name, yearOfBirth, job);
+    this.olympicGames = olympicGames;
+    this.medals = medals;
+        
+    
+}
+
+// Object.create - allows us to manually set the prototype of an object
+// set Athlete5's prototype same as Person5's 
+// Athlete5's class inherits from Person5's class
+// connect the two function constructors where Person5 is the superclass and Athlete5 is the subclass
+Athlete5.prototype = Object.create(Person5.prototype);
+
+// specific method only for the instances of Athlete5
+Athlete5.prototype.wonMedal = function() {
+    
+    this.medals++;
+    console.log(this.medals);
+    
+}
+
+// create a new instance
+var johnAthlete5 = new Athlete5('John', 1990, 'Swimmer', 3, 10);
+
+johnAthlete5.calculateAge();
+johnAthlete5.wonMedal();
+
+
+// ES6
+// example for classes and subclasses (inheritance)
+// superclass
+class Person6 {
+    
+    // constructor
+    // () - this is where we define the initial properties that we want in our object
+    constructor(name, yearOfBirth, job) {
+        
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+        this.job = job;
+        
+    }
+    
+    // method
+    calculateAge() {
+        
+        var age = new Date().getFullYear() - this.yearOfBirth;
+        console.log(age);
+        
+    }
+    
+}
+
+// subclass
+class Athlete6 extends Person6 {
+    
+    constructor(name, yearOfBirth, job, olympicGames, medals) {
+        
+        // 'super' calls the superclass
+        super(name, yearOfBirth, job);
+        this.olympicGames = olympicGames;
+        this.medals = medals;
+        
+    }
+    
+    wonMedal() {
+        
+        this.medals++;
+        console.log(this.medals);
+        
+    }
+    
+}
+
+// create a new instance
+var johnAthlete6 = new Athlete6('John', 1990, 'Swimmer', 3, 10);
+
+johnAthlete6.wonMedal();
+johnAthlete6.calculateAge();
 
 
 

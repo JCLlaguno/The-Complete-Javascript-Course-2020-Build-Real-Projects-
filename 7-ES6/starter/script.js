@@ -617,7 +617,7 @@ var emily = new SmithPerson('Emily', 1996, 'Diaz', 'Spanish');
 
 //--------------------------------------------------------------------------------------------------------------------------
 // Lecture: Maps
-
+/*
 const question = new Map(); // create a new empty map
 
 // syntax: question.*('key', 'value');
@@ -685,11 +685,73 @@ console.log(question.get(ans === question.get('correct'))); // if 3 === 3 consol
 // maps are iterable, making it very easy to loop through them and to manipulate data
 // its really easy to get the size of a map using the size property
 // we can easily add and remove data from a map
+*/
 
 
+//--------------------------------------------------------------------------------------------------------------------------
+// Lecture: Classes
+// 1. class definitions are not hoisted unlike function constructors
+// we need to first implement a class and only later in our code we can start using it
+// 2. we can only add methods to classes but not properties
+
+// ES5
+// using a blueprint (function constructor)
+var Person5 = function(name, yearOfBirth, job) {
+    
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
+    
+}
+
+// will be inherited by instances of Person5
+Person5.prototype.calculateAge = function() {
+    
+    var age = new Date().getFullYear() - this.yearOfBirth;
+    console.log(age);
+    
+}
+
+var john5 = new Person5('John', 1990, 'Teacher');
 
 
+// ES6
+// using classes
+// all classes must have a constructor method
+class Person6 {
+    
+    // constructor
+    // () - this is where we define the initial properties that we want in our object
+    constructor(name, yearOfBirth, job) {
+        
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+        this.job = job;
+        
+    }
+    
+    // method
+    calculateAge() {
+        
+        var age = new Date().getFullYear() - this.yearOfBirth;
+        console.log(age);
+        
+    }
+    
+    // static method - a method that is attached to the class, but not inherited by the class instances (objects that are created through the class)
+    static greeting() {
+        
+        console.log('Hey there!');
+        
+    }
+    
+}
 
+// an instance of the Person6 class
+const john6 = new Person6('John', 1990, 'Teacher');
+
+// calling a static method
+Person6.greeting();
 
 
 
